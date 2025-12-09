@@ -169,9 +169,9 @@ export function Footer() {
               &copy; {new Date().getFullYear()} ATC Family Transport. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
-              <span>DOT# XXXXXX</span>
+              <span>DOT# 3492067</span>
               <span>|</span>
-              <span>MC# XXXXXX</span>
+              <span>MC# 1149655</span>
             </div>
           </div>
         </div>

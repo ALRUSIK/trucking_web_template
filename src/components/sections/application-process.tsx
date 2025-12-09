@@ -1,0 +1,173 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { FileText, Search, UserCheck, Truck } from "lucide-react";
+
+const steps = [
+  {
+    icon: FileText,
+    number: "01",
+    title: "Submit Online App",
+    description: "Fill out the form below in 5 minutes",
+  },
+  {
+    icon: Search,
+    number: "02",
+    title: "Quick Review",
+    description: "We review within 24 hours and contact qualified candidates",
+  },
+  {
+    icon: UserCheck,
+    number: "03",
+    title: "Interview & Verify",
+    description: "Phone or in-person interview plus DOT physical",
+  },
+  {
+    icon: Truck,
+    number: "04",
+    title: "Start Driving",
+    description: "Complete onboarding and hit the road",
+  },
+];
+
+export function ApplicationProcess() {
+  return (
+    <section className="py-24 lg:py-28 bg-[#f8f9fa]">
+      <div className="container mx-auto px-4 lg:px-8">
+        {/* Section Header */}
+        <motion.div
+          className="text-center mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
+            How to Apply
+          </h2>
+          <div className="w-20 h-1 bg-[#ff4433] mx-auto mb-4" />
+          <p className="text-xl text-[#1a2332]/70">
+            Simple, fast, and straightforward
+          </p>
+        </motion.div>
+
+        {/* Process Steps */}
+        <div className="max-w-5xl mx-auto mt-16">
+          {/* Desktop: Horizontal Timeline */}
+          <div className="hidden lg:block">
+            {/* Connecting Line */}
+            <div className="relative">
+              <motion.div
+                className="absolute top-12 left-[12%] right-[12%] h-1 bg-[#ff4433]/20"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.3 }}
+                style={{ transformOrigin: "left" }}
+              />
+              <motion.div
+                className="absolute top-12 left-[12%] right-[12%] h-1 bg-[#ff4433]"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, delay: 0.5 }}
+                style={{ transformOrigin: "left" }}
+              />
+            </div>
+
+            {/* Steps Grid */}
+            <div className="grid grid-cols-4 gap-8">
+              {steps.map((step, index) => (
+                <motion.div
+                  key={step.title}
+                  className="text-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
+                >
+                  {/* Icon Circle */}
+                  <div className="relative inline-block mb-6">
+                    <motion.div
+                      className="w-24 h-24 bg-white rounded-full shadow-lg flex items-center justify-center"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.4,
+                        delay: 0.5 + index * 0.2,
+                        type: "spring",
+                      }}
+                    >
+                      <step.icon className="w-10 h-10 text-[#1a2332]" />
+                    </motion.div>
+                    {/* Number Badge */}
+                    <motion.div
+                      className="absolute -top-2 -right-2 w-10 h-10 bg-[#ff4433] rounded-full flex items-center justify-center text-white font-bold text-sm"
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.7 + index * 0.2,
+                        type: "spring",
+                      }}
+                    >
+                      {step.number}
+                    </motion.div>
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-xl font-bold text-[#1a2332] mb-2 font-[family-name:var(--font-outfit)]">
+                    {step.title}
+                  </h3>
+                  <p className="text-[#1a2332]/70 text-sm">
+                    {step.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile: Vertical Timeline */}
+          <div className="lg:hidden space-y-8">
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                className="flex gap-6"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+              >
+                {/* Icon */}
+                <div className="relative flex-shrink-0">
+                  <div className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center">
+                    <step.icon className="w-8 h-8 text-[#1a2332]" />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-8 h-8 bg-[#ff4433] rounded-full flex items-center justify-center text-white font-bold text-xs">
+                    {step.number}
+                  </div>
+                  {/* Connecting Line */}
+                  {index < steps.length - 1 && (
+                    <div className="absolute top-16 left-1/2 -translate-x-1/2 w-0.5 h-8 bg-[#ff4433]/30" />
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="pt-2">
+                  <h3 className="text-lg font-bold text-[#1a2332] mb-1 font-[family-name:var(--font-outfit)]">
+                    {step.title}
+                  </h3>
+                  <p className="text-[#1a2332]/70 text-sm">
+                    {step.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

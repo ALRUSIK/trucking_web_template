@@ -62,19 +62,13 @@ export function ServicesSection() {
             >
               {/* Image */}
               <div className="relative h-56 overflow-hidden bg-[#1a2332]">
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1a2332]/60 to-transparent z-10" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-white/20 text-6xl font-bold font-[family-name:var(--font-outfit)]">
-                    {service.title}
-                  </span>
-                </div>
-                {/* Placeholder - replace with actual images */}
-                {/* <Image
+                <Image
                   src={service.image}
                   alt={service.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                /> */}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1a2332]/60 to-transparent z-10" />
               </div>
 
               {/* Content */}
