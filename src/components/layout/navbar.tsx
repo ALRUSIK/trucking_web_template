@@ -122,101 +122,101 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, x: "100%" }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: "100%" }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="fixed inset-y-0 right-0 w-[300px] bg-[#1a2332] lg:hidden shadow-2xl"
-            >
-              <div className="flex flex-col h-full p-6">
-                {/* Close button */}
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="self-end p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
-                  aria-label="Close menu"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-
-                {/* Navigation Links */}
-                <div className="flex flex-col gap-2 mt-8">
-                  {navLinks.map((link, index) => (
-                    <motion.div
-                      key={link.href}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 + 0.2 }}
-                    >
-                      <Link
-                        href={link.href}
-                        onClick={() => setIsOpen(false)}
-                        className="block px-4 py-3 text-white font-medium text-lg hover:bg-white/10 rounded-lg transition-colors"
-                      >
-                        {link.label}
-                      </Link>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Mobile CTA Buttons */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="mt-auto space-y-3"
-                >
-                  <Button
-                    
-                    className="w-full border-2 border-[#ff4433] text-[#ff4433] bg-transparent hover:bg-[#ff4433] hover:text-white shadow-none"
-                    asChild
-                  >
-                    <Link href="/careers" onClick={() => setIsOpen(false)}>
-                      Drive With Us
-                    </Link>
-                  </Button>
-                  <Button
-                    className="w-full bg-[#ff4433] hover:bg-[#e63d2e] text-white"
-                    asChild
-                  >
-                    <Link href="/contact" onClick={() => setIsOpen(false)}>
-                      Get a Quote
-                    </Link>
-                  </Button>
-
-                  {/* Contact info */}
-                  <div className="pt-6 border-t border-white/10">
-                    <a
-                      href="tel:+12248011105"
-                      className="flex items-center gap-3 text-white/80 hover:text-[#ff4433] transition-colors"
-                    >
-                      <Phone className="w-5 h-5" />
-                      <span>(224) 801-1105</span>
-                    </a>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Mobile menu overlay */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/50 lg:hidden -z-10"
-              onClick={() => setIsOpen(false)}
-            />
-          )}
-        </AnimatePresence>
       </nav>
+
+      {/* Mobile menu overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black/50 lg:hidden z-40"
+            onClick={() => setIsOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed inset-y-0 right-0 w-[300px] bg-[#1a2332] lg:hidden shadow-2xl z-50"
+          >
+            <div className="flex flex-col h-full p-6">
+              {/* Close button */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="self-end p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+                aria-label="Close menu"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              {/* Navigation Links */}
+              <div className="flex flex-col gap-2 mt-8">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 + 0.2 }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className="block px-4 py-3 text-white font-medium text-lg hover:bg-white/10 rounded-lg transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Mobile CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="mt-auto space-y-3"
+              >
+                <Button
+                  className="w-full border-2 border-[#ff4433] text-[#ff4433] bg-transparent hover:bg-[#ff4433] hover:text-white shadow-none"
+                  asChild
+                >
+                  <Link href="/careers" onClick={() => setIsOpen(false)}>
+                    Drive With Us
+                  </Link>
+                </Button>
+                <Button
+                  className="w-full bg-[#ff4433] hover:bg-[#e63d2e] text-white"
+                  asChild
+                >
+                  <Link href="/contact" onClick={() => setIsOpen(false)}>
+                    Get a Quote
+                  </Link>
+                </Button>
+
+                {/* Contact info */}
+                <div className="pt-6 border-t border-white/10">
+                  <a
+                    href="tel:+12248011105"
+                    className="flex items-center gap-3 text-white/80 hover:text-[#ff4433] transition-colors"
+                  >
+                    <Phone className="w-5 h-5" />
+                    <span>(224) 801-1105</span>
+                  </a>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
