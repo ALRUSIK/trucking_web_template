@@ -34,7 +34,7 @@ export function Navbar() {
       transition={{ duration: 0.6, delay: 0.3 }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
+        scrolled || isOpen
           ? "bg-white/95 backdrop-blur-md shadow-lg py-2"
           : "bg-transparent py-4"
       )}
@@ -53,13 +53,13 @@ export function Navbar() {
             <div className="flex flex-col">
               <span className={cn(
                 "text-xl font-bold font-[family-name:var(--font-outfit)] tracking-tight transition-colors",
-                scrolled ? "text-[#1a2332]" : "text-white"
+                scrolled || isOpen ? "text-[#1a2332]" : "text-white"
               )}>
                 ATC
               </span>
               <span className={cn(
                 "text-[10px] uppercase tracking-[0.2em] font-medium transition-colors -mt-1",
-                scrolled ? "text-[#1a2332]/70" : "text-white/80"
+                scrolled || isOpen ? "text-[#1a2332]/70" : "text-white/80"
               )}>
                 Family Transport
               </span>
@@ -114,7 +114,7 @@ export function Navbar() {
             onClick={() => setIsOpen(!isOpen)}
             className={cn(
               "lg:hidden p-2 rounded-lg transition-colors",
-              scrolled ? "text-[#1a2332] hover:bg-gray-100" : "text-white hover:bg-white/10"
+              scrolled || isOpen ? "text-[#1a2332] hover:bg-gray-100" : "text-white hover:bg-white/10"
             )}
             aria-label="Toggle menu"
           >
