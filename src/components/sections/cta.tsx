@@ -41,8 +41,7 @@ export function CTASection() {
             </Button>
             <Button
               size="lg"
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-[#ff4433] px-8 py-6 text-lg font-semibold transition-all"
+              className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-[#ff4433] px-8 py-6 text-lg font-semibold transition-all shadow-none"
               asChild
             >
               <a href="tel:+12248011105" className="flex items-center gap-2">

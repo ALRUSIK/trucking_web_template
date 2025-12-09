@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Truck } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -42,15 +43,13 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className={cn(
-              "p-2.5 rounded-xl transition-all duration-300",
-              scrolled ? "bg-[#ff4433]" : "bg-white"
-            )}>
-              <Truck className={cn(
-                "w-7 h-7 transition-colors",
-                scrolled ? "text-white" : "text-[#ff4433]"
-              )} />
-            </div>
+            <Image
+              src="/images/cropped-Untitled-2-min-192x192.jpg"
+              alt="ATC Family Transport Logo"
+              width={48}
+              height={48}
+              className="rounded-xl"
+            />
             <div className="flex flex-col">
               <span className={cn(
                 "text-xl font-bold font-[family-name:var(--font-outfit)] tracking-tight transition-colors",
@@ -87,9 +86,9 @@ export function Navbar() {
           {/* CTA Buttons - Desktop */}
           <div className="hidden lg:flex items-center gap-3">
             <Button
-              variant="outline"
+              
               className={cn(
-                "border-2 font-medium transition-all duration-300 hover:scale-105",
+                "border-2 font-medium transition-all duration-300 hover:scale-105 bg-transparent shadow-none",
                 scrolled
                   ? "border-[#ff4433] text-[#ff4433] hover:bg-[#ff4433] hover:text-white"
                   : "border-white text-white hover:bg-white hover:text-[#1a2332]"
@@ -171,8 +170,8 @@ export function Navbar() {
                   className="mt-auto space-y-3"
                 >
                   <Button
-                    variant="outline"
-                    className="w-full border-2 border-[#ff4433] text-[#ff4433] hover:bg-[#ff4433] hover:text-white"
+                    
+                    className="w-full border-2 border-[#ff4433] text-[#ff4433] bg-transparent hover:bg-[#ff4433] hover:text-white shadow-none"
                     asChild
                   >
                     <Link href="/careers" onClick={() => setIsOpen(false)}>

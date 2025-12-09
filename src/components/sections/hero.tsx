@@ -20,7 +20,7 @@ export function HeroSection() {
   const isInView = useInView(statsRef, { once: true });
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex flex-col overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -39,8 +39,8 @@ export function HeroSection() {
         }}
       />
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 lg:px-8 pt-20">
+      {/* Main Content Area */}
+      <div className="relative z-10 flex-1 flex items-center container mx-auto px-4 lg:px-8 pt-24 pb-8">
         <div className="max-w-3xl">
           {/* Main Heading */}
           <motion.h1
@@ -83,24 +83,45 @@ export function HeroSection() {
             </Button>
             <Button
               size="lg"
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-[#1a2332] px-8 py-6 text-lg font-medium transition-all"
+              
+              className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-[#1a2332] px-8 py-6 text-lg font-medium transition-all shadow-none"
               asChild
             >
               <Link href="/services">Our Services</Link>
             </Button>
           </motion.div>
         </div>
+      </div>
+
+      {/* Bottom Section: Stats Bar + Scroll Indicator */}
+      <div className="relative z-10 pb-8">
+        {/* Scroll Indicator */}
+        <motion.div
+          className="flex justify-center mb-6"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <div className="flex flex-col items-center gap-2 text-white/50">
+            <span className="text-xs uppercase tracking-wider">Scroll to explore</span>
+            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+              <motion.div
+                className="w-1.5 h-3 bg-white/50 rounded-full mt-2"
+                animate={{ y: [0, 12, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </div>
+          </div>
+        </motion.div>
 
         {/* Stats Bar */}
         <motion.div
           ref={statsRef}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl"
+          className="container mx-auto px-4 lg:px-8"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -109,8 +130,8 @@ export function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.3 + index * 0.1 }}
               >
-                <stat.icon className="w-6 h-6 text-[#ff4433] mx-auto mb-2" />
-                <div className="text-2xl md:text-3xl font-bold text-white font-[family-name:var(--font-outfit)]">
+                <stat.icon className="w-5 h-5 md:w-6 md:h-6 text-[#ff4433] mx-auto mb-2" />
+                <div className="text-xl md:text-2xl lg:text-3xl font-bold text-white font-[family-name:var(--font-outfit)]">
                   {isInView && (
                     <CountUp
                       end={stat.value}
@@ -119,7 +140,7 @@ export function HeroSection() {
                     />
                   )}
                 </div>
-                <div className="text-xs md:text-sm text-white/70 uppercase tracking-wider mt-1">
+                <div className="text-[10px] md:text-xs text-white/70 uppercase tracking-wider mt-1">
                   {stat.label}
                 </div>
               </motion.div>
@@ -127,24 +148,6 @@ export function HeroSection() {
           </div>
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-32 md:bottom-36 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <div className="flex flex-col items-center gap-2 text-white/50">
-          <span className="text-xs uppercase tracking-wider">Scroll to explore</span>
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <motion.div
-              className="w-1.5 h-3 bg-white/50 rounded-full mt-2"
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-          </div>
-        </div>
-      </motion.div>
     </section>
   );
 }
