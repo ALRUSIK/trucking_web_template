@@ -23,14 +23,37 @@ const promises = [
 
 export function PromiseSection() {
   return (
-    <section className="py-24 lg:py-28 bg-[#f8f9fa] relative overflow-hidden">
-      {/* Decorative Quote Marks */}
-      <div className="absolute top-20 left-10 text-[200px] font-serif text-[#ff4433]/5 leading-none select-none">
+    <section className="relative py-24 lg:py-28 bg-[#12121a] overflow-hidden">
+      {/* Decorative Quote Marks with animation */}
+      <motion.div
+        className="absolute top-20 left-10 text-[200px] font-serif text-purple-500/5 leading-none select-none"
+        animate={{ opacity: [0.03, 0.08, 0.03] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      >
         &ldquo;
-      </div>
-      <div className="absolute bottom-20 right-10 text-[200px] font-serif text-[#ff4433]/5 leading-none select-none">
+      </motion.div>
+      <motion.div
+        className="absolute bottom-20 right-10 text-[200px] font-serif text-cyan-500/5 leading-none select-none"
+        animate={{ opacity: [0.03, 0.08, 0.03] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      >
         &rdquo;
+      </motion.div>
+
+      {/* Background effects */}
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
+          style={{
+            background: "radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 60%)",
+          }}
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        />
       </div>
+
+      {/* Grid pattern */}
+      <div className="absolute inset-0 grid-pattern opacity-20" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -41,13 +64,13 @@ export function PromiseSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
-            Our Promise to You
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
+            Our Promise <span className="gradient-text">to You</span>
           </h2>
-          <div className="w-20 h-1 bg-[#ff4433] mx-auto" />
+          <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto rounded-full" />
         </motion.div>
 
-        {/* Quote */}
+        {/* Quote with special animation */}
         <motion.div
           className="max-w-[800px] mx-auto text-center mb-16"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -55,13 +78,19 @@ export function PromiseSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <p className="text-xl md:text-2xl text-[#1a2332]/80 italic leading-relaxed">
-            &ldquo;We don&apos;t just move freight—we build relationships. Every
-            shipment is an opportunity to prove our commitment to excellence,
-            safety, and reliability. When you choose ATC Family Transport,
-            you&apos;re choosing a partner who treats your business like
-            family.&rdquo;
-          </p>
+          <motion.div
+            className="glass rounded-2xl p-8 md:p-10"
+            whileHover={{ scale: 1.01 }}
+            transition={{ duration: 0.3 }}
+          >
+            <p className="text-xl md:text-2xl text-white/80 italic leading-relaxed">
+              &ldquo;We don&apos;t just move freight—we build relationships. Every
+              shipment is an opportunity to prove our commitment to excellence,
+              safety, and reliability. When you choose ATC Family Transport,
+              you&apos;re choosing a partner who treats your business like
+              family.&rdquo;
+            </p>
+          </motion.div>
         </motion.div>
 
         {/* Promise Pillars */}
@@ -69,19 +98,24 @@ export function PromiseSection() {
           {promises.map((promise, index) => (
             <motion.div
               key={promise.title}
-              className="bg-white rounded-xl p-6 text-center shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="glass rounded-xl p-6 text-center group hover:border-purple-500/30 transition-all duration-300"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
+              whileHover={{ y: -5 }}
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-[#ff4433]/10 rounded-xl mb-4">
-                <promise.icon className="w-6 h-6 text-[#ff4433]" />
-              </div>
-              <h3 className="text-lg font-bold text-[#1a2332] mb-2 font-[family-name:var(--font-outfit)]">
+              <motion.div
+                className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-500/20 to-violet-500/20 border border-purple-500/20 rounded-xl mb-4 group-hover:border-purple-500/40 transition-colors"
+                whileHover={{ rotate: [0, -5, 5, 0] }}
+                transition={{ duration: 0.4 }}
+              >
+                <promise.icon className="w-7 h-7 text-purple-400" />
+              </motion.div>
+              <h3 className="text-lg font-bold text-white mb-2 font-[family-name:var(--font-outfit)]">
                 {promise.title}
               </h3>
-              <p className="text-[#1a2332]/60 text-sm">{promise.description}</p>
+              <p className="text-white/50 text-sm">{promise.description}</p>
             </motion.div>
           ))}
         </div>

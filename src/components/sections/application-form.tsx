@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Loader2, CheckCircle } from "lucide-react";
+import { ArrowRight, Loader2, CheckCircle, Shield, Clock, Phone, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const states = [
@@ -22,21 +22,10 @@ const experienceOptions = [
   { value: "10+", label: "10+ years" },
 ];
 
-const flatbedExpOptions = [
-  { value: "", label: "Select Experience" },
-  { value: "none", label: "None" },
-  { value: "less-1", label: "Less than 1 year" },
-  { value: "1-3", label: "1-3 years" },
-  { value: "3+", label: "3+ years" },
-];
-
-const freightOptions = [
-  { value: "", label: "Select Preference" },
-  { value: "flatbed", label: "Flatbed" },
-  { value: "step-deck", label: "Step Deck" },
-  { value: "rgn-lowboy", label: "RGN/Lowboy" },
-  { value: "any", label: "Any/All" },
-  { value: "not-sure", label: "Not Sure" },
+const trustSignals = [
+  { icon: Shield, text: "Your info is secure" },
+  { icon: Clock, text: "Takes only 2 minutes" },
+  { icon: Phone, text: "We call within 24hrs" },
 ];
 
 export function ApplicationForm() {
@@ -46,35 +35,15 @@ export function ApplicationForm() {
     phone: "",
     email: "",
     city: "",
-    zipCode: "",
-    cdlNumber: "",
     cdlState: "",
     yearsExperience: "",
-    cdlObtainedDate: "",
-    flatbedExperience: "",
-    hasHazmat: false,
-    hasTanker: false,
-    hasDoubles: false,
-    violations: "",
-    hasAccidents: "",
-    hasSuspensions: "",
-    suspensionExplanation: "",
-    currentEmployer: "",
-    position: "",
-    duration: "",
-    canContactEmployer: "",
-    reasonForLeaving: "",
-    freightPreference: "",
-    homeTimePreference: "",
-    canStartWithin30Days: "",
-    additionalComments: "",
     certifyAccurate: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
@@ -93,38 +62,53 @@ export function ApplicationForm() {
   };
 
   const inputClass =
-    "w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg text-[#1a2332] focus:outline-none focus:border-[#ff4433] transition-colors";
-  const labelClass = "block text-[#1a2332] font-medium mb-2 text-sm";
-  const sectionHeaderClass =
-    "bg-[#1a2332] text-white px-5 py-3 font-bold rounded-t-xl";
+    "w-full px-4 py-4 input-dark rounded-xl text-white text-base focus-ring";
 
   if (isSubmitted) {
     return (
-      <section id="application-form" className="py-24 lg:py-28 bg-white">
-        <div className="container mx-auto px-4 lg:px-8">
+      <section id="application-form" className="relative py-24 lg:py-28 bg-[#0a0a0f] overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 grid-pattern opacity-30" />
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-30"
+          style={{
+            background: "radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, transparent 60%)",
+          }}
+        />
+
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
-            className="max-w-2xl mx-auto text-center bg-[#f8f9fa] rounded-2xl p-12"
+            className="max-w-xl mx-auto text-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <CheckCircle className="w-24 h-24 text-green-500 mx-auto mb-6" />
-            <h2 className="text-3xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
-              Application Submitted Successfully!
-            </h2>
-            <p className="text-[#1a2332]/70 mb-6">
-              Thank you for your interest in joining ATC Family Transport.
-            </p>
-            <p className="text-[#1a2332]/70 mb-8">
-              Our recruiting team will review your application and contact you
-              within <strong>24-48 hours</strong>.
-            </p>
-            <Button
-              onClick={() => window.location.reload()}
-              className="bg-[#ff4433] hover:bg-[#e63d2e] text-white"
-            >
-              Return to Careers Page
-            </Button>
+            <div className="glass rounded-3xl p-10 border border-green-500/20">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2, type: "spring" }}
+              >
+                <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-6" />
+              </motion.div>
+              <h2 className="text-3xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
+                Application Submitted!
+              </h2>
+              <p className="text-white/70 mb-6">
+                Thank you for your interest in joining ATC Family Transport.
+              </p>
+              <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4 mb-8">
+                <p className="text-green-400 font-medium">
+                  Our recruiting team will call you within <strong>24 hours</strong>.
+                </p>
+              </div>
+              <Button
+                onClick={() => window.location.reload()}
+                className="btn-gradient btn-shine text-white px-8 py-3"
+              >
+                Return to Careers Page
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -132,573 +116,251 @@ export function ApplicationForm() {
   }
 
   return (
-    <section id="application-form" className="py-24 lg:py-28 bg-white">
-      <div className="container mx-auto px-4 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
-            Ready to Join Our Team?
-          </h2>
-          <div className="w-20 h-1 bg-[#ff4433] mx-auto" />
-        </motion.div>
+    <section id="application-form" className="relative py-24 lg:py-28 bg-[#12121a] overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-30"
+          style={{
+            background: "radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 60%)",
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full opacity-20"
+          style={{
+            background: "radial-gradient(circle, rgba(249, 115, 22, 0.1) 0%, transparent 60%)",
+          }}
+        />
+      </div>
 
-        {/* Application Form */}
-        <motion.form
-          onSubmit={handleSubmit}
-          className="max-w-3xl mx-auto space-y-8"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          {/* Personal Information */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-            <div className={sectionHeaderClass}>Personal Information</div>
-            <div className="p-6 space-y-5">
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className={labelClass}>
-                    First Name <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>
-                    Last Name <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className={labelClass}>
-                    Phone Number <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                    placeholder="(555) 123-4567"
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>
-                    Email Address <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className={labelClass}>
-                    City, State <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>
-                    ZIP Code <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="zipCode"
-                    value={formData.zipCode}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* Grid pattern */}
+      <div className="absolute inset-0 grid-pattern opacity-30" />
 
-          {/* CDL & Experience */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-            <div className={sectionHeaderClass}>CDL & Experience</div>
-            <div className="p-6 space-y-5">
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className={labelClass}>
-                    CDL License Number <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="cdlNumber"
-                    value={formData.cdlNumber}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>
-                    CDL State <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <select
-                    name="cdlState"
-                    value={formData.cdlState}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  >
-                    <option value="">Select State</option>
-                    {states.map((state) => (
-                      <option key={state} value={state}>
-                        {state}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className={labelClass}>
-                    Years of OTR Experience <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <select
-                    name="yearsExperience"
-                    value={formData.yearsExperience}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                  >
-                    {experienceOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className={labelClass}>
-                    Flatbed/Heavy Haul Experience
-                  </label>
-                  <select
-                    name="flatbedExperience"
-                    value={formData.flatbedExperience}
-                    onChange={handleChange}
-                    className={inputClass}
-                  >
-                    {flatbedExpOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div>
-                <label className={labelClass}>Endorsements</label>
-                <div className="flex flex-wrap gap-6">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      name="hasHazmat"
-                      checked={formData.hasHazmat}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span className="text-[#1a2332]">Hazmat</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      name="hasTanker"
-                      checked={formData.hasTanker}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span className="text-[#1a2332]">Tanker</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      name="hasDoubles"
-                      checked={formData.hasDoubles}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span className="text-[#1a2332]">Doubles/Triples</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Driving Record */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-            <div className={sectionHeaderClass}>Driving Record</div>
-            <div className="p-6 space-y-5">
-              <div>
-                <label className={labelClass}>
-                  Moving violations in past 3 years <span className="text-[#ff4433]">*</span>
-                </label>
-                <select
-                  name="violations"
-                  value={formData.violations}
-                  onChange={handleChange}
-                  required
-                  className={inputClass}
-                >
-                  <option value="">Select</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3+">3+</option>
-                </select>
-              </div>
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className={labelClass}>
-                    Any accidents in past 3 years? <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <div className="flex gap-6 mt-2">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="hasAccidents"
-                        value="yes"
-                        checked={formData.hasAccidents === "yes"}
-                        onChange={handleChange}
-                        className="w-5 h-5 accent-[#ff4433]"
-                      />
-                      <span>Yes</span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="hasAccidents"
-                        value="no"
-                        checked={formData.hasAccidents === "no"}
-                        onChange={handleChange}
-                        className="w-5 h-5 accent-[#ff4433]"
-                      />
-                      <span>No</span>
-                    </label>
-                  </div>
-                </div>
-                <div>
-                  <label className={labelClass}>
-                    Any license suspensions? <span className="text-[#ff4433]">*</span>
-                  </label>
-                  <div className="flex gap-6 mt-2">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="hasSuspensions"
-                        value="yes"
-                        checked={formData.hasSuspensions === "yes"}
-                        onChange={handleChange}
-                        className="w-5 h-5 accent-[#ff4433]"
-                      />
-                      <span>Yes</span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="hasSuspensions"
-                        value="no"
-                        checked={formData.hasSuspensions === "no"}
-                        onChange={handleChange}
-                        className="w-5 h-5 accent-[#ff4433]"
-                      />
-                      <span>No</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              {formData.hasSuspensions === "yes" && (
-                <div>
-                  <label className={labelClass}>Please explain:</label>
-                  <textarea
-                    name="suspensionExplanation"
-                    value={formData.suspensionExplanation}
-                    onChange={handleChange}
-                    rows={2}
-                    className={inputClass}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Previous Employment */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-            <div className={sectionHeaderClass}>Previous Employment</div>
-            <div className="p-6 space-y-5">
-              <div>
-                <label className={labelClass}>
-                  Current/Most Recent Employer <span className="text-[#ff4433]">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="currentEmployer"
-                  value={formData.currentEmployer}
-                  onChange={handleChange}
-                  required
-                  className={inputClass}
-                />
-              </div>
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <label className={labelClass}>Position</label>
-                  <input
-                    type="text"
-                    name="position"
-                    value={formData.position}
-                    onChange={handleChange}
-                    className={inputClass}
-                  />
-                </div>
-                <div>
-                  <label className={labelClass}>Duration</label>
-                  <input
-                    type="text"
-                    name="duration"
-                    value={formData.duration}
-                    onChange={handleChange}
-                    className={inputClass}
-                    placeholder="MM/YYYY - MM/YYYY"
-                  />
-                </div>
-              </div>
-              <div>
-                <label className={labelClass}>
-                  May we contact this employer? <span className="text-[#ff4433]">*</span>
-                </label>
-                <div className="flex gap-6 mt-2">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="canContactEmployer"
-                      value="yes"
-                      checked={formData.canContactEmployer === "yes"}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span>Yes</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="canContactEmployer"
-                      value="no"
-                      checked={formData.canContactEmployer === "no"}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span>No</span>
-                  </label>
-                </div>
-              </div>
-              <div>
-                <label className={labelClass}>Reason for leaving</label>
-                <textarea
-                  name="reasonForLeaving"
-                  value={formData.reasonForLeaving}
-                  onChange={handleChange}
-                  rows={2}
-                  className={inputClass}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Additional Information */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-            <div className={sectionHeaderClass}>Additional Information</div>
-            <div className="p-6 space-y-5">
-              <div>
-                <label className={labelClass}>
-                  What type of freight interests you most? <span className="text-[#ff4433]">*</span>
-                </label>
-                <select
-                  name="freightPreference"
-                  value={formData.freightPreference}
-                  onChange={handleChange}
-                  required
-                  className={inputClass}
-                >
-                  {freightOptions.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className={labelClass}>
-                  Home time preference <span className="text-[#ff4433]">*</span>
-                </label>
-                <div className="flex flex-wrap gap-6 mt-2">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="homeTimePreference"
-                      value="weekly"
-                      checked={formData.homeTimePreference === "weekly"}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span>Weekly</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="homeTimePreference"
-                      value="bi-weekly"
-                      checked={formData.homeTimePreference === "bi-weekly"}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span>Bi-weekly</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="homeTimePreference"
-                      value="other"
-                      checked={formData.homeTimePreference === "other"}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span>Other</span>
-                  </label>
-                </div>
-              </div>
-              <div>
-                <label className={labelClass}>
-                  Are you available to start within 30 days? <span className="text-[#ff4433]">*</span>
-                </label>
-                <div className="flex flex-wrap gap-6 mt-2">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="canStartWithin30Days"
-                      value="yes"
-                      checked={formData.canStartWithin30Days === "yes"}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span>Yes</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="canStartWithin30Days"
-                      value="no"
-                      checked={formData.canStartWithin30Days === "no"}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span>No</span>
-                  </label>
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="canStartWithin30Days"
-                      value="discuss"
-                      checked={formData.canStartWithin30Days === "discuss"}
-                      onChange={handleChange}
-                      className="w-5 h-5 accent-[#ff4433]"
-                    />
-                    <span>Need to discuss</span>
-                  </label>
-                </div>
-              </div>
-              <div>
-                <label className={labelClass}>Additional comments or questions</label>
-                <textarea
-                  name="additionalComments"
-                  value={formData.additionalComments}
-                  onChange={handleChange}
-                  rows={3}
-                  className={inputClass}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Certification */}
-          <div className="bg-[#f8f9fa] rounded-xl p-6">
-            <label className="flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                name="certifyAccurate"
-                checked={formData.certifyAccurate}
-                onChange={handleChange}
-                required
-                className="w-5 h-5 accent-[#ff4433] mt-0.5"
-              />
-              <span className="text-[#1a2332] text-sm">
-                I certify that all information is accurate and complete to the
-                best of my knowledge. <span className="text-[#ff4433]">*</span>
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid lg:grid-cols-5 gap-10 items-start">
+            {/* Left side - Benefits */}
+            <motion.div
+              className="lg:col-span-2 lg:sticky lg:top-32"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-sm font-medium mb-6">
+                <Sparkles className="w-4 h-4" />
+                Quick Application
               </span>
-            </label>
+
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
+                Start Your <span className="gradient-text">New Career</span> Today
+              </h2>
+
+              <p className="text-white/60 mb-8">
+                Fill out this quick form and our recruiting team will contact you within 24 hours to discuss opportunities.
+              </p>
+
+              {/* Trust signals */}
+              <div className="space-y-4 mb-8">
+                {trustSignals.map((signal) => (
+                  <div key={signal.text} className="flex items-center gap-3 text-white/70">
+                    <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                      <signal.icon className="w-5 h-5 text-purple-400" />
+                    </div>
+                    <span>{signal.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Call option */}
+              <div className="glass rounded-xl p-5 border border-purple-500/20">
+                <p className="text-white/60 text-sm mb-2">Prefer to talk?</p>
+                <a
+                  href="tel:+12248011105"
+                  className="text-xl font-bold text-white hover:text-purple-400 transition-colors"
+                >
+                  (224) 801-1105
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Right side - Form */}
+            <motion.div
+              className="lg:col-span-3"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <form onSubmit={handleSubmit} className="glass rounded-2xl p-8 border border-purple-500/10">
+                <div className="space-y-5">
+                  {/* Name */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-white/80 font-medium mb-2 text-sm">
+                        First Name <span className="text-orange-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        required
+                        className={inputClass}
+                        placeholder="John"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-white/80 font-medium mb-2 text-sm">
+                        Last Name <span className="text-orange-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        required
+                        className={inputClass}
+                        placeholder="Doe"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Contact */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-white/80 font-medium mb-2 text-sm">
+                        Phone Number <span className="text-orange-400">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                        className={inputClass}
+                        placeholder="(555) 123-4567"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-white/80 font-medium mb-2 text-sm">
+                        Email Address <span className="text-orange-400">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className={inputClass}
+                        placeholder="john@email.com"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Location */}
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-white/80 font-medium mb-2 text-sm">
+                        City, State <span className="text-orange-400">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        required
+                        className={inputClass}
+                        placeholder="Chicago, IL"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-white/80 font-medium mb-2 text-sm">
+                        CDL State <span className="text-orange-400">*</span>
+                      </label>
+                      <select
+                        name="cdlState"
+                        value={formData.cdlState}
+                        onChange={handleChange}
+                        required
+                        className={inputClass}
+                      >
+                        <option value="">Select State</option>
+                        {states.map((state) => (
+                          <option key={state} value={state}>
+                            {state}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Experience */}
+                  <div>
+                    <label className="block text-white/80 font-medium mb-2 text-sm">
+                      Years of OTR Experience <span className="text-orange-400">*</span>
+                    </label>
+                    <select
+                      name="yearsExperience"
+                      value={formData.yearsExperience}
+                      onChange={handleChange}
+                      required
+                      className={inputClass}
+                    >
+                      {experienceOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Certification */}
+                  <div className="bg-purple-500/5 border border-purple-500/10 rounded-xl p-4">
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        name="certifyAccurate"
+                        checked={formData.certifyAccurate}
+                        onChange={handleChange}
+                        required
+                        className="w-5 h-5 accent-purple-500 mt-0.5 rounded"
+                      />
+                      <span className="text-white/70 text-sm">
+                        I certify that all information is accurate and I consent to be contacted about employment opportunities.{" "}
+                        <span className="text-orange-400">*</span>
+                      </span>
+                    </label>
+                  </div>
+
+                  {/* Submit Button */}
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting || !formData.certifyAccurate}
+                    className="w-full btn-gradient btn-shine text-white py-6 text-lg font-bold shadow-xl hover:shadow-orange-500/30 hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 group"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        Submit Application
+                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
+                  </Button>
+
+                  {/* Privacy Note */}
+                  <p className="text-center text-xs text-white/40">
+                    Your information is confidential. We comply with all EEOC and privacy regulations.
+                  </p>
+                </div>
+              </form>
+            </motion.div>
           </div>
-
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            disabled={isSubmitting || !formData.certifyAccurate}
-            className="w-full bg-[#ff4433] hover:bg-[#e63d2e] text-white py-6 text-lg font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group"
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                Submitting...
-              </>
-            ) : (
-              <>
-                Submit Application
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </>
-            )}
-          </Button>
-
-          {/* Privacy Note */}
-          <p className="text-center text-sm text-[#1a2332]/50 italic">
-            Your information is confidential and will only be used for employment
-            purposes. We comply with all EEOC and privacy regulations.
-          </p>
-        </motion.form>
+        </div>
       </div>
     </section>
   );

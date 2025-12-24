@@ -80,8 +80,27 @@ const services = [
 
 export function ServiceDetails() {
   return (
-    <section className="py-20 lg:py-28 bg-[#f8f9fa]">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="relative py-20 lg:py-28 bg-[#12121a] overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-30"
+          style={{
+            background: "radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 60%)",
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full opacity-20"
+          style={{
+            background: "radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 60%)",
+          }}
+        />
+      </div>
+
+      {/* Grid pattern */}
+      <div className="absolute inset-0 grid-pattern opacity-20" />
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="space-y-32">
           {services.map((service, serviceIndex) => (
             <motion.div
@@ -109,14 +128,14 @@ export function ServiceDetails() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.8 }}
                 >
-                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group">
+                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group border border-purple-500/20">
                     <Image
                       src={service.image}
                       alt={service.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a2332]/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/60 to-transparent" />
                   </div>
                 </motion.div>
 
@@ -131,14 +150,14 @@ export function ServiceDetails() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
                     {service.title}
                   </h3>
-                  <div className="w-16 h-1 bg-[#ff4433] mb-6" />
-                  <p className="text-lg text-[#1a2332]/70 mb-4">
+                  <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mb-6 rounded-full" />
+                  <p className="text-lg text-purple-400 mb-4">
                     {service.subtitle}
                   </p>
-                  <p className="text-[#1a2332]/70 leading-relaxed mb-8">
+                  <p className="text-white/60 leading-relaxed mb-8">
                     {service.description}
                   </p>
 
@@ -147,17 +166,17 @@ export function ServiceDetails() {
                     {service.specs.map((spec, index) => (
                       <motion.div
                         key={spec.label}
-                        className="bg-white rounded-xl p-4 shadow-sm"
+                        className="bg-[#1f1f2e] rounded-xl p-4 border border-purple-500/10 group hover:border-purple-500/30 transition-colors"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                       >
-                        <spec.icon className="w-5 h-5 text-[#ff4433] mb-2" />
-                        <div className="text-xs text-[#1a2332]/60 uppercase tracking-wider">
+                        <spec.icon className="w-5 h-5 text-purple-400 mb-2" />
+                        <div className="text-xs text-white/50 uppercase tracking-wider">
                           {spec.label}
                         </div>
-                        <div className="text-lg font-bold text-[#1a2332]">
+                        <div className="text-lg font-bold text-white">
                           {spec.value}
                         </div>
                       </motion.div>
@@ -166,20 +185,20 @@ export function ServiceDetails() {
 
                   {/* What We Haul */}
                   <div className="mb-8">
-                    <h4 className="text-sm font-bold text-[#1a2332] uppercase tracking-wider mb-4">
+                    <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">
                       What We Haul
                     </h4>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       {service.hauling.map((item, index) => (
                         <motion.li
                           key={index}
-                          className="flex items-start gap-2 text-[#1a2332]/70 text-sm"
+                          className="flex items-start gap-2 text-white/60 text-sm"
                           initial={{ opacity: 0, x: -10 }}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
                         >
-                          <Check className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                          <Check className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
                           {item}
                         </motion.li>
                       ))}
@@ -188,7 +207,7 @@ export function ServiceDetails() {
 
                   {/* CTA Button */}
                   <Button
-                    className="bg-[#ff4433] hover:bg-[#e63d2e] text-white font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all group"
+                    className="btn-gradient btn-shine text-white font-medium shadow-lg hover:shadow-purple-500/25 hover:scale-105 transition-all group"
                     asChild
                   >
                     <Link href="/contact" className="flex items-center gap-2">

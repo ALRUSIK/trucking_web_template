@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -35,7 +35,7 @@ function MobileMenu({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/50 lg:hidden"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm lg:hidden"
             style={{ zIndex: 9998 }}
             onClick={() => setIsOpen(false)}
           />
@@ -50,14 +50,17 @@ function MobileMenu({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-0 right-0 bottom-0 w-[300px] bg-[#1a2332] lg:hidden shadow-2xl"
+            className="fixed top-0 right-0 bottom-0 w-[300px] bg-[#0a0a0f] border-l border-purple-500/20 lg:hidden shadow-2xl"
             style={{ zIndex: 9999 }}
           >
+            {/* Gradient accent line */}
+            <div className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-purple-500 via-violet-500 to-cyan-500" />
+
             <div className="flex flex-col h-full p-6">
               {/* Close button */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="self-end p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+                className="self-end p-2 text-white/80 hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-all"
                 aria-label="Close menu"
               >
                 <X className="w-6 h-6" />
@@ -75,7 +78,7 @@ function MobileMenu({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
                     <Link
                       href={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="block px-4 py-3 text-white font-medium text-lg hover:bg-white/10 rounded-lg transition-colors"
+                      className="block px-4 py-3 text-white/90 font-medium text-lg hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-all"
                     >
                       {link.label}
                     </Link>
@@ -91,7 +94,7 @@ function MobileMenu({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
                 className="mt-auto space-y-3"
               >
                 <Button
-                  className="w-full border-2 border-[#ff4433] text-[#ff4433] bg-transparent hover:bg-[#ff4433] hover:text-white shadow-none"
+                  className="w-full border border-purple-500/50 text-purple-400 bg-transparent hover:bg-purple-500/10 hover:border-purple-400 shadow-none transition-all"
                   asChild
                 >
                   <Link href="/careers" onClick={() => setIsOpen(false)}>
@@ -99,7 +102,7 @@ function MobileMenu({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
                   </Link>
                 </Button>
                 <Button
-                  className="w-full bg-[#ff4433] hover:bg-[#e63d2e] text-white"
+                  className="w-full btn-gradient text-white font-semibold glow-orange"
                   asChild
                 >
                   <Link href="/contact" onClick={() => setIsOpen(false)}>
@@ -108,10 +111,10 @@ function MobileMenu({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: 
                 </Button>
 
                 {/* Contact info */}
-                <div className="pt-6 border-t border-white/10">
+                <div className="pt-6 border-t border-purple-500/20">
                   <a
                     href="tel:+12248011105"
-                    className="flex items-center gap-3 text-white/80 hover:text-[#ff4433] transition-colors"
+                    className="flex items-center gap-3 text-white/70 hover:text-purple-400 transition-colors"
                   >
                     <Phone className="w-5 h-5" />
                     <span>(224) 801-1105</span>
@@ -158,34 +161,37 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.3 }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
           scrolled || isOpen
-            ? "bg-white/95 backdrop-blur-md shadow-lg py-2"
+            ? "glass py-2 shadow-lg shadow-purple-500/5"
             : "bg-transparent py-4"
         )}
       >
+        {/* Top gradient line when scrolled */}
+        {scrolled && (
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+        )}
+
         <nav className="container mx-auto px-4 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <Image
-                src="/images/cropped-Untitled-2-min-192x192.jpg"
-                alt="ATC Family Transport Logo"
-                width={48}
-                height={48}
-                className="rounded-xl"
-              />
+              <div className="relative">
+                <Image
+                  src="/images/cropped-Untitled-2-min-192x192.jpg"
+                  alt="ATC Family Transport Logo"
+                  width={48}
+                  height={48}
+                  className="rounded-xl transition-transform group-hover:scale-105"
+                />
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 rounded-xl bg-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity" />
+              </div>
               <div className="flex flex-col">
-                <span className={cn(
-                  "text-xl font-bold font-[family-name:var(--font-outfit)] tracking-tight transition-colors",
-                  scrolled || isOpen ? "text-[#1a2332]" : "text-white"
-                )}>
+                <span className="text-xl font-bold font-[family-name:var(--font-outfit)] tracking-tight text-white group-hover:text-purple-400 transition-colors">
                   ATC
                 </span>
-                <span className={cn(
-                  "text-[10px] uppercase tracking-[0.2em] font-medium transition-colors -mt-1",
-                  scrolled || isOpen ? "text-[#1a2332]/70" : "text-white/80"
-                )}>
+                <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-white/60 -mt-1">
                   Family Transport
                 </span>
               </div>
@@ -197,13 +203,10 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={cn(
-                    "relative font-medium text-sm tracking-wide transition-colors hover:text-[#ff4433] group",
-                    scrolled ? "text-[#1a2332]" : "text-white"
-                  )}
+                  className="relative font-medium text-sm tracking-wide text-white/80 transition-colors hover:text-white group"
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#ff4433] transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-500 transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
             </div>
@@ -211,23 +214,19 @@ export function Navbar() {
             {/* CTA Buttons - Desktop */}
             <div className="hidden lg:flex items-center gap-3">
               <Button
-                className={cn(
-                  "border-2 font-medium transition-all duration-300 hover:scale-105 bg-transparent shadow-none",
-                  scrolled
-                    ? "border-[#ff4433] text-[#ff4433] hover:bg-[#ff4433] hover:text-white"
-                    : "border-white text-white hover:bg-white hover:text-[#1a2332]"
-                )}
+                className="border border-purple-500/50 text-purple-400 bg-transparent hover:bg-purple-500/10 hover:border-purple-400 font-medium transition-all duration-300 hover:scale-105 shadow-none"
                 asChild
               >
-                <Link href="/careers">
+                <Link href="/careers" className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4" />
                   Drive With Us
                 </Link>
               </Button>
               <Button
-                className="bg-[#ff4433] hover:bg-[#e63d2e] text-white font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                className="btn-gradient btn-shine text-white font-semibold shadow-lg hover:shadow-orange-500/25 hover:scale-105 transition-all duration-300"
                 asChild
               >
-                <Link href="/contact" className="flex items-center gap-2">
+                <Link href="/contact">
                   Get a Quote
                 </Link>
               </Button>
@@ -236,10 +235,7 @@ export function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={cn(
-                "lg:hidden p-2 rounded-lg transition-colors relative z-50",
-                scrolled || isOpen ? "text-[#1a2332] hover:bg-gray-100" : "text-white hover:bg-white/10"
-              )}
+              className="lg:hidden p-2 rounded-lg text-white/80 hover:text-purple-400 hover:bg-purple-500/10 transition-all relative z-50"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

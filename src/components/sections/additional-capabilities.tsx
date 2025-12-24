@@ -26,8 +26,21 @@ const capabilities = [
 
 export function AdditionalCapabilities() {
   return (
-    <section className="py-20 lg:py-24 bg-white">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="relative py-20 lg:py-24 bg-[#0a0a0f] overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-30"
+          style={{
+            background: "radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 60%)",
+          }}
+        />
+      </div>
+
+      {/* Grid pattern */}
+      <div className="absolute inset-0 grid-pattern opacity-20" />
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-16"
@@ -36,10 +49,10 @@ export function AdditionalCapabilities() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
-            Additional Capabilities
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
+            Additional <span className="gradient-text">Capabilities</span>
           </h2>
-          <div className="w-16 h-1 bg-[#ff4433] mx-auto" />
+          <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto rounded-full" />
         </motion.div>
 
         {/* Cards Grid */}
@@ -47,19 +60,19 @@ export function AdditionalCapabilities() {
           {capabilities.map((capability, index) => (
             <motion.div
               key={capability.title}
-              className="bg-[#f8f9fa] rounded-2xl p-8 text-center group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-transparent hover:border-[#ff4433]"
+              className="glass rounded-2xl p-8 text-center group card-hover border-t-2 border-transparent hover:border-purple-500"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl shadow-sm mb-6 group-hover:shadow-md transition-shadow">
-                <capability.icon className="w-8 h-8 text-[#ff4433]" />
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500/20 to-violet-500/10 border border-purple-500/20 rounded-2xl mb-6 group-hover:border-purple-500/40 group-hover:shadow-lg group-hover:shadow-purple-500/10 transition-all">
+                <capability.icon className="w-8 h-8 text-purple-400" />
               </div>
-              <h3 className="text-xl font-bold text-[#1a2332] mb-3 font-[family-name:var(--font-outfit)]">
+              <h3 className="text-xl font-bold text-white mb-3 font-[family-name:var(--font-outfit)]">
                 {capability.title}
               </h3>
-              <p className="text-[#1a2332]/70">{capability.description}</p>
+              <p className="text-white/60">{capability.description}</p>
             </motion.div>
           ))}
         </div>

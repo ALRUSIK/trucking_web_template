@@ -41,8 +41,21 @@ export function FAQSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-20 lg:py-28 bg-[#f8f9fa]">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="relative py-20 lg:py-28 bg-[#0a0a0f] overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-30"
+          style={{
+            background: "radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 60%)",
+          }}
+        />
+      </div>
+
+      {/* Grid pattern */}
+      <div className="absolute inset-0 grid-pattern opacity-20" />
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-16"
@@ -51,10 +64,10 @@ export function FAQSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
-            Frequently Asked Questions
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
+            Frequently Asked <span className="gradient-text">Questions</span>
           </h2>
-          <div className="w-16 h-1 bg-[#ff4433] mx-auto" />
+          <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto rounded-full" />
         </motion.div>
 
         {/* FAQ Accordion */}
@@ -62,7 +75,7 @@ export function FAQSection() {
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              className="bg-white rounded-xl overflow-hidden shadow-sm"
+              className="glass rounded-xl overflow-hidden"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -70,9 +83,9 @@ export function FAQSection() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors"
               >
-                <span className="font-semibold text-[#1a2332] pr-4">
+                <span className="font-semibold text-white pr-4">
                   {faq.question}
                 </span>
                 <motion.div
@@ -81,9 +94,9 @@ export function FAQSection() {
                   className="flex-shrink-0"
                 >
                   {openIndex === index ? (
-                    <X className="w-5 h-5 text-[#ff4433]" />
+                    <X className="w-5 h-5 text-purple-400" />
                   ) : (
-                    <Plus className="w-5 h-5 text-[#ff4433]" />
+                    <Plus className="w-5 h-5 text-purple-400" />
                   )}
                 </motion.div>
               </button>
@@ -95,7 +108,7 @@ export function FAQSection() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="px-6 pb-6 text-[#1a2332]/70 leading-relaxed">
+                    <div className="px-6 pb-6 text-white/60 leading-relaxed">
                       {faq.answer}
                     </div>
                   </motion.div>
