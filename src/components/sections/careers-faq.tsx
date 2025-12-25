@@ -55,8 +55,14 @@ export function CareersFAQ() {
   };
 
   return (
-    <section className="py-20 lg:py-24 bg-[#f8f9fa]">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="py-20 lg:py-24 bg-[#12121a] relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 right-1/4 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-14"
@@ -65,9 +71,10 @@ export function CareersFAQ() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
-            Frequently Asked Questions
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
+            Frequently Asked <span className="gradient-text">Questions</span>
           </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto" />
         </motion.div>
 
         {/* FAQ Accordion */}
@@ -75,33 +82,38 @@ export function CareersFAQ() {
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              className={`bg-white border rounded-xl overflow-hidden transition-all duration-300 ${
+              className={`glass border rounded-xl overflow-hidden transition-all duration-300 group ${
                 openIndex === index
-                  ? "border-l-4 border-l-[#ff4433] border-gray-200"
-                  : "border-gray-200"
+                  ? "border-l-4 border-l-purple-500 border-purple-500/40"
+                  : "border-purple-500/20 hover:border-purple-500/30"
               }`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
+              whileHover={{ x: 5 }}
             >
               {/* Question */}
               <button
                 onClick={() => toggleFAQ(index)}
                 className={`w-full flex items-center justify-between p-5 text-left transition-colors ${
-                  openIndex === index ? "bg-gray-50" : "hover:bg-gray-50"
+                  openIndex === index ? "bg-purple-500/10" : "hover:bg-purple-500/5"
                 }`}
               >
-                <span className="text-lg font-bold text-[#1a2332] pr-4">
+                <span className="text-lg font-bold text-white pr-4">
                   {faq.question}
                 </span>
-                <span className="flex-shrink-0">
+                <motion.span
+                  className="flex-shrink-0"
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
                   {openIndex === index ? (
-                    <X className="w-6 h-6 text-[#ff4433]" />
+                    <X className="w-6 h-6 text-purple-400" />
                   ) : (
-                    <Plus className="w-6 h-6 text-[#ff4433]" />
+                    <Plus className="w-6 h-6 text-purple-400" />
                   )}
-                </span>
+                </motion.span>
               </button>
 
               {/* Answer */}
@@ -114,9 +126,14 @@ export function CareersFAQ() {
                     transition={{ duration: 0.3 }}
                   >
                     <div className="px-5 pb-5">
-                      <p className="text-[#1a2332]/70 leading-relaxed">
+                      <motion.p
+                        className="text-white/70 leading-relaxed"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                      >
                         {faq.answer}
-                      </p>
+                      </motion.p>
                     </div>
                   </motion.div>
                 )}

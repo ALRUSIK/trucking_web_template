@@ -44,8 +44,17 @@ const benefits = [
 
 export function WhyDriveSection() {
   return (
-    <section id="why-atc" className="py-24 lg:py-32 bg-white">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section id="why-atc" className="py-24 lg:py-32 bg-[#0a0a0f] relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-3xl" />
+      </div>
+
+      {/* Grid pattern */}
+      <div className="absolute inset-0 grid-pattern opacity-20" />
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-20"
@@ -54,11 +63,11 @@ export function WhyDriveSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
-            Why Choose ATC Family Transport?
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
+            Why Choose <span className="gradient-text">ATC Family Transport</span>?
           </h2>
-          <div className="w-20 h-1 bg-[#ff4433] mx-auto mb-6" />
-          <p className="text-xl text-[#1a2332]/70 max-w-[700px] mx-auto">
+          <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mb-6" />
+          <p className="text-xl text-white/70 max-w-[700px] mx-auto">
             More than just a job—a career you can count on.
           </p>
         </motion.div>
@@ -68,27 +77,32 @@ export function WhyDriveSection() {
           {benefits.map((benefit, index) => (
             <motion.div
               key={benefit.title}
-              className="bg-white border-2 border-gray-100 rounded-2xl p-10 text-center group hover:border-[#ff4433] hover:-translate-y-3 hover:shadow-xl transition-all duration-300"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              className="glass border border-purple-500/20 rounded-2xl p-10 text-center group card-hover"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -10, borderColor: "rgba(139, 92, 246, 0.4)" }}
             >
               {/* Icon */}
-              <div className="inline-flex items-center justify-center w-14 h-14 bg-[#ff4433]/10 rounded-2xl mb-6 group-hover:bg-[#ff4433] transition-colors duration-300">
-                <benefit.icon className="w-7 h-7 text-[#ff4433] group-hover:text-white transition-colors duration-300" />
-              </div>
+              <motion.div
+                className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-500/20 to-violet-500/10 rounded-2xl mb-6 group-hover:from-purple-500 group-hover:to-violet-600 transition-all duration-300"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <benefit.icon className="w-7 h-7 text-purple-400 group-hover:text-white transition-colors duration-300" />
+              </motion.div>
 
               {/* Title */}
-              <h3 className="text-2xl font-bold text-[#1a2332] mb-3 font-[family-name:var(--font-outfit)]">
+              <h3 className="text-2xl font-bold text-white mb-3 font-[family-name:var(--font-outfit)]">
                 {benefit.title}
               </h3>
 
               {/* Divider */}
-              <div className="w-12 h-0.5 bg-[#ff4433] mx-auto mb-4" />
+              <div className="w-12 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mb-4" />
 
               {/* Description */}
-              <p className="text-[#1a2332]/70 leading-relaxed">
+              <p className="text-white/70 leading-relaxed">
                 {benefit.description}
               </p>
             </motion.div>

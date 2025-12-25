@@ -1,12 +1,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Phone } from "lucide-react";
+import { Phone, AlertCircle } from "lucide-react";
 
 export function EmergencyContact() {
   return (
-    <section className="py-16 lg:py-20 bg-[#ff4433]">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="py-16 lg:py-20 bg-gradient-to-br from-orange-600 via-orange-500 to-orange-600 relative overflow-hidden">
+      {/* Animated background pattern */}
+      <motion.div
+        className="absolute inset-0"
+        animate={{
+          backgroundPosition: ["0% 0%", "100% 100%"],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }}
+        style={{
+          backgroundImage: "radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%)",
+          backgroundSize: "200% 200%",
+        }}
+      />
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <motion.div
           className="max-w-[800px] mx-auto text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -14,9 +31,16 @@ export function EmergencyContact() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-5 font-[family-name:var(--font-outfit)]">
-            Need Help After Hours?
-          </h2>
+          <motion.div
+            className="inline-flex items-center gap-2 mb-5"
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <AlertCircle className="w-8 h-8 text-white" />
+            <h2 className="text-2xl md:text-3xl font-bold text-white font-[family-name:var(--font-outfit)]">
+              Need Help After Hours?
+            </h2>
+          </motion.div>
 
           <p className="text-lg text-white/95 mb-8">
             For urgent dispatch needs or shipment emergencies outside business
@@ -31,10 +55,10 @@ export function EmergencyContact() {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <motion.div
-              className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center"
+              className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm"
               animate={{
                 boxShadow: [
-                  "0 0 0 0 rgba(255, 255, 255, 0.4)",
+                  "0 0 0 0 rgba(255, 255, 255, 0.5)",
                   "0 0 0 20px rgba(255, 255, 255, 0)",
                 ],
               }}
@@ -46,14 +70,18 @@ export function EmergencyContact() {
             >
               <Phone className="w-7 h-7 text-white" />
             </motion.div>
-            <span className="text-4xl md:text-5xl font-bold text-white font-[family-name:var(--font-outfit)]">
+            <span className="text-4xl md:text-5xl font-bold text-white font-[family-name:var(--font-outfit)] drop-shadow-lg">
               (224) 801-1105
             </span>
           </motion.a>
 
-          <p className="text-sm text-white/80 mt-6">
+          <motion.p
+            className="text-sm text-white/90 mt-6 font-medium"
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
             Available for emergencies 24/7
-          </p>
+          </motion.p>
         </motion.div>
       </div>
     </section>

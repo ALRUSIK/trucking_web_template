@@ -31,8 +31,17 @@ const features = {
 
 export function CareersFleetSection() {
   return (
-    <section className="py-24 lg:py-28 bg-[#f8f9fa]">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="py-24 lg:py-28 bg-[#0a0a0f] relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/2 left-1/3 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/3 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-3xl" />
+      </div>
+
+      {/* Grid pattern */}
+      <div className="absolute inset-0 grid-pattern opacity-20" />
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-8"
@@ -41,11 +50,11 @@ export function CareersFleetSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
-            Our Fleet & Equipment
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
+            Our <span className="gradient-text">Fleet & Equipment</span>
           </h2>
-          <div className="w-20 h-1 bg-[#ff4433] mx-auto mb-4" />
-          <p className="text-xl text-[#1a2332]/70">
+          <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mb-4" />
+          <p className="text-xl text-white/70">
             Drive the best equipment in the industry
           </p>
         </motion.div>
@@ -55,11 +64,12 @@ export function CareersFleetSection() {
           {fleetImages.map((item, index) => (
             <motion.div
               key={item.title}
-              className="group relative overflow-hidden rounded-xl shadow-lg"
+              className="group relative overflow-hidden rounded-xl shadow-lg border border-purple-500/20"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
+              whileHover={{ y: -5 }}
             >
               <div className="aspect-[4/3] relative">
                 <Image
@@ -68,7 +78,7 @@ export function CareersFleetSection() {
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1a2332]/80 via-[#1a2332]/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/40 to-transparent" />
               </div>
 
               {/* Caption */}
@@ -76,7 +86,7 @@ export function CareersFleetSection() {
                 <h3 className="text-lg font-bold text-white mb-1 font-[family-name:var(--font-outfit)]">
                   {item.title}
                 </h3>
-                <p className="text-white/80 text-sm">{item.description}</p>
+                <p className="text-purple-400 text-sm font-medium">{item.description}</p>
               </div>
             </motion.div>
           ))}
@@ -90,20 +100,21 @@ export function CareersFleetSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <div className="grid md:grid-cols-2 gap-8 bg-white rounded-2xl p-8 shadow-lg">
+          <div className="grid md:grid-cols-2 gap-8 glass rounded-2xl p-8 border border-purple-500/20">
             {/* Left Column */}
             <ul className="space-y-4">
               {features.left.map((feature, index) => (
                 <motion.li
                   key={feature}
-                  className="flex items-center gap-3"
+                  className="flex items-center gap-3 group"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.4 + index * 0.08 }}
+                  whileHover={{ x: 5 }}
                 >
-                  <Check className="w-5 h-5 text-[#ff4433] flex-shrink-0" />
-                  <span className="text-[#1a2332]">{feature}</span>
+                  <Check className="w-5 h-5 text-purple-400 flex-shrink-0 group-hover:text-purple-300 transition-colors" />
+                  <span className="text-white group-hover:text-white/90 transition-colors">{feature}</span>
                 </motion.li>
               ))}
             </ul>
@@ -113,14 +124,15 @@ export function CareersFleetSection() {
               {features.right.map((feature, index) => (
                 <motion.li
                   key={feature}
-                  className="flex items-center gap-3"
+                  className="flex items-center gap-3 group"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: 0.4 + index * 0.08 }}
+                  whileHover={{ x: 5 }}
                 >
-                  <Check className="w-5 h-5 text-[#ff4433] flex-shrink-0" />
-                  <span className="text-[#1a2332]">{feature}</span>
+                  <Check className="w-5 h-5 text-cyan-400 flex-shrink-0 group-hover:text-cyan-300 transition-colors" />
+                  <span className="text-white group-hover:text-white/90 transition-colors">{feature}</span>
                 </motion.li>
               ))}
             </ul>

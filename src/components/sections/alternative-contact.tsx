@@ -30,8 +30,14 @@ const contactMethods = [
 
 export function AlternativeContact() {
   return (
-    <section className="py-20 lg:py-24 bg-[#1a2332]">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="py-20 lg:py-24 bg-[#12121a] relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/3 w-[400px] h-[400px] bg-violet-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/3 w-[350px] h-[350px] bg-cyan-500/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-14"
@@ -41,7 +47,7 @@ export function AlternativeContact() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
-            Other Ways to Reach Us
+            Other Ways to <span className="gradient-text">Reach Us</span>
           </h2>
         </motion.div>
 
@@ -50,23 +56,29 @@ export function AlternativeContact() {
           {contactMethods.map((method, index) => (
             <motion.div
               key={method.title}
-              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-8 text-center hover:bg-white/15 hover:-translate-y-2 transition-all duration-300"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              className="glass border border-purple-500/20 rounded-xl p-8 text-center card-hover group"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
+              whileHover={{ y: -8 }}
             >
-              <method.icon className="w-12 h-12 text-[#ff4433] mx-auto mb-5" />
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <method.icon className="w-12 h-12 text-purple-400 group-hover:text-purple-300 mx-auto mb-5 transition-colors" />
+              </motion.div>
               <h3 className="text-xl font-bold text-white mb-2 font-[family-name:var(--font-outfit)]">
                 {method.title}
               </h3>
-              <div className="w-10 h-0.5 bg-white/30 mx-auto mb-3" />
+              <div className="w-10 h-0.5 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mb-3" />
               <p className="text-white/70 mb-5">{method.description}</p>
 
               {method.isLink ? (
                 <Link
                   href={method.action.href}
-                  className="inline-flex items-center gap-2 text-[#ff4433] font-semibold hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold hover:gap-3 transition-all"
                 >
                   {method.action.label}
                   <ArrowRight className="w-4 h-4" />
@@ -74,7 +86,7 @@ export function AlternativeContact() {
               ) : (
                 <a
                   href={method.action.href}
-                  className="inline-flex items-center gap-2 text-[#ff4433] font-semibold hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 font-semibold hover:gap-3 transition-all"
                 >
                   {method.action.label}
                   {method.action.label === "Call Support" && (

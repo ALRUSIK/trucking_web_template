@@ -2,14 +2,35 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Phone } from "lucide-react";
+import { Phone, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const trustElements = ["2M+ Miles Driven", "48 States", "Family Owned & Operated"];
 
 export function CareersCTA() {
   return (
-    <section className="py-24 lg:py-28 bg-[#ff4433] relative overflow-hidden">
+    <section className="py-24 lg:py-28 bg-gradient-to-br from-purple-600 via-violet-600 to-purple-700 relative overflow-hidden">
+      {/* Animated Background Pattern */}
+      <div className="absolute inset-0 opacity-20">
+        <motion.div
+          className="absolute top-0 left-0 w-full h-full"
+          style={{
+            backgroundImage: `radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                             radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                             radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%)`,
+          }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.3, 0.2],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+
       {/* Subtle Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div
@@ -20,6 +41,40 @@ export function CareersCTA() {
         />
       </div>
 
+      {/* Animated Orbs */}
+      <motion.div
+        className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%)",
+        }}
+        animate={{
+          x: [0, 50, 0],
+          y: [0, 30, 0],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] rounded-full"
+        style={{
+          background: "radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%)",
+        }}
+        animate={{
+          x: [0, -40, 0],
+          y: [0, -40, 0],
+          scale: [1, 1.3, 1],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <motion.div
           className="max-w-[900px] mx-auto text-center"
@@ -29,53 +84,85 @@ export function CareersCTA() {
           transition={{ duration: 0.6 }}
         >
           {/* Heading */}
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-[family-name:var(--font-outfit)]">
+          <motion.h2
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-[family-name:var(--font-outfit)]"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Your Career Starts Here
-          </h2>
+          </motion.h2>
 
           {/* Description */}
-          <p className="text-lg md:text-xl text-white/95 mb-10 leading-relaxed max-w-[700px] mx-auto">
-            Join a company that values you. Apply today and start driving with a
-            team that treats you like family.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Button
-              size="lg"
-              className="bg-white text-[#ff4433] hover:bg-gray-100 px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-              asChild
-            >
-              <Link href="#application-form">Apply Now</Link>
-            </Button>
-
-            <Button
-              size="lg"
-              className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-[#ff4433] px-8 py-6 text-lg font-semibold transition-all shadow-none"
-              asChild
-            >
-              <a href="tel:+12248011105" className="flex items-center gap-2">
-                <Phone className="w-5 h-5" />
-                Call Recruiting
-              </a>
-            </Button>
-          </div>
-
-          {/* Trust Elements */}
-          <motion.div
-            className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/80"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+          <motion.p
+            className="text-lg md:text-xl text-white/95 mb-10 leading-relaxed max-w-[700px] mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
+            Join a company that values you. Apply today and start driving with a
+            team that treats you like family.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                size="lg"
+                className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 group"
+                asChild
+              >
+                <Link href="#application-form" className="flex items-center gap-2">
+                  Apply Now
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+            </motion.div>
+
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                size="lg"
+                className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-purple-600 px-8 py-6 text-lg font-semibold transition-all shadow-none"
+                asChild
+              >
+                <a href="tel:+12248011105" className="flex items-center gap-2">
+                  <Phone className="w-5 h-5" />
+                  Call Recruiting
+                </a>
+              </Button>
+            </motion.div>
+          </motion.div>
+
+          {/* Trust Elements */}
+          <motion.div
+            className="flex flex-wrap items-center justify-center gap-4 text-sm text-white/90 font-medium"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
             {trustElements.map((element, index) => (
-              <span key={element} className="flex items-center gap-4">
+              <motion.span
+                key={element}
+                className="flex items-center gap-4"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
+              >
                 {element}
                 {index < trustElements.length - 1 && (
                   <span className="text-white/50">|</span>
                 )}
-              </span>
+              </motion.span>
             ))}
           </motion.div>
         </motion.div>

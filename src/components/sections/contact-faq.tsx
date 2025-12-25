@@ -40,8 +40,13 @@ export function ContactFAQ() {
   };
 
   return (
-    <section className="py-20 lg:py-24 bg-white">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="py-20 lg:py-24 bg-[#0a0a0f] relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-14"
@@ -50,10 +55,10 @@ export function ContactFAQ() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mb-4 font-[family-name:var(--font-outfit)]">
-            Common Questions
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-[family-name:var(--font-outfit)]">
+            <span className="gradient-text">Common Questions</span>
           </h2>
-          <div className="w-16 h-1 bg-[#ff4433] mx-auto" />
+          <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto" />
         </motion.div>
 
         {/* FAQ Accordion */}
@@ -61,33 +66,38 @@ export function ContactFAQ() {
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              className={`border rounded-xl overflow-hidden transition-all duration-300 ${
+              className={`glass border rounded-xl overflow-hidden transition-all duration-300 ${
                 openIndex === index
-                  ? "border-l-4 border-l-[#ff4433] border-gray-200"
-                  : "border-gray-200"
+                  ? "border-l-4 border-l-purple-500 border-purple-500/40"
+                  : "border-purple-500/20"
               }`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
+              whileHover={{ scale: 1.01 }}
             >
               {/* Question */}
               <button
                 onClick={() => toggleFAQ(index)}
                 className={`w-full flex items-center justify-between p-5 text-left transition-colors ${
-                  openIndex === index ? "bg-gray-50" : "hover:bg-gray-50"
+                  openIndex === index ? "bg-purple-500/10" : "hover:bg-purple-500/5"
                 }`}
               >
-                <span className="text-lg font-bold text-[#1a2332] pr-4">
+                <span className="text-lg font-bold text-white pr-4">
                   {faq.question}
                 </span>
-                <span className="flex-shrink-0">
+                <motion.span
+                  className="flex-shrink-0"
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
                   {openIndex === index ? (
-                    <X className="w-6 h-6 text-[#ff4433]" />
+                    <X className="w-6 h-6 text-purple-400" />
                   ) : (
-                    <Plus className="w-6 h-6 text-[#ff4433]" />
+                    <Plus className="w-6 h-6 text-purple-400" />
                   )}
-                </span>
+                </motion.span>
               </button>
 
               {/* Answer */}
@@ -100,7 +110,7 @@ export function ContactFAQ() {
                     transition={{ duration: 0.3 }}
                   >
                     <div className="px-5 pb-5">
-                      <p className="text-[#1a2332]/70 leading-relaxed">
+                      <p className="text-white/70 leading-relaxed">
                         {faq.answer}
                       </p>
                     </div>
